@@ -1,76 +1,76 @@
 # teaching-jxs-tp5 Angular JS
-# TP6 Pokemon réalisé par Meriem Machnache & Lydia Moussa
+# TP6 Pokemon rÃ©alisÃ© par Meriem Machnache & Lydia Moussa
 
-Dans ce tp, nous avons eu l'occasion de découvrir :
-les différents concepts d'angular JS.
+Dans ce tp, nous avons eu l'occasion de dÃ©couvrir :
+les diffÃ©rents concepts d'angular JS.
 
    Ng-model, Ng-Repeat
    $scope,$resource , $service,$factory
    $http,$watch,$directive
 
  
-# Recherche d'un pokémon via son numéro
+# Recherche d'un pokÃ©mon via son numÃ©ro
 
-Dans cette partie, nous avons récupérer le numéro, nous avons utilisé la directive ng-model d'AngularJS.
-La directive ng-model permet de faire le binding,pour lier la balise input à la variable id du modèle, une fois la valeur de la balise input est changé le modèle se mette à jour automatiquement.
+Dans cette partie, nous avons rÃ©cupÃ©rer le numÃ©ro, nous avons utilisÃ© la directive ng-model d'AngularJS.
+La directive ng-model permet de faire le binding,pour lier la balise input Ã  la variable id du modÃ¨le, une fois la valeur de la balise input est changÃ© le modÃ¨le se mette Ã  jour automatiquement.
 
-<input type="text" ng-model="id" /> : pour définir la directive 
+<input type="text" ng-model="id" /> : pour dÃ©finir la directive 
 {{id}} : pour afficher la valeur de l'id dans la vue.
  
 # Recherche dans une liste
  
-Nous avons déclaré un contrôleur PokControl dans le modèle pokedex.js.
-Dans ce controlleur, nous avons déclaré une variable poks qui contient la liste de pokémons via le service $scope.
+Nous avons dÃ©clarÃ© un contrÃ´leur PokControl dans le modÃ¨le pokedex.js.
+Dans ce controlleur, nous avons dÃ©clarÃ© une variable poks qui contient la liste de pokÃ©mons via le service $scope.
 
 Le scope est le liant qui contient les variables qui assurent la liaison entre la vue et le controleur.
+ 
+pokeApp.controller('PokController', function($scope) {</br>
+$scope.nom="";</br>
+$scope.poks = [ </br>
+{id:1, nom: 'Pok1'}, </br>
+{id:2, nom: 'Pok2'}, </br>
+{id:3, nom: 'Pok3'},</br>
+{id:4, nom: 'Pok4'},</br>
+{id:5, nom: 'toto1'},</br>
+{id:6, nom: 'toto2'},</br>
+{id:7, nom: 'xxxx1'},</br>
+{id:8, nom: 'xxxx2'}</br>
+];</br>
+});</br>
 
-pokeApp.controller('PokController', function($scope) {
-$scope.nom="";
-$scope.poks = [
-{id:1, nom: 'Pok1'},
-{id:2, nom: 'Pok2'},
-{id:3, nom: 'Pok3'},
-{id:4, nom: 'Pok4'},
-{id:5, nom: 'toto1'},
-{id:6, nom: 'toto2'},
-{id:7, nom: 'xxxx1'},
-{id:8, nom: 'xxxx2'}
-];
-});
+ </div> 
+Pour rÃ©cupÃ©rer la liste de pokÃ©mons, nous avons liÃ©s le contrÃ´leur dÃ©clarÃ© dans le modÃ¨le Ã  la balisÃ© div dans la vue.</br>
 
-  
-Pour récupérer la liste de pokémons, nous avons liés le contrôleur déclaré dans le modèle à la balisé div dans la vue.
+<div ng-controller="PokController">  : Associer le contrÃ´leur <div> 
 
-<div ng-controller="PokController">  : Associer le contrôleur <div>
+<select ng-model="selected">  : Lier la select au modÃ¨le.
 
-<select ng-model="selected">  : Lier la select au modèle.
-
-<option ng-repeat="pok in poks">  : Parcourir la liste de pokémons
-{{pok.nom}}  : Récupérer la liste de pokémons
+<option ng-repeat="pok in poks">  : Parcourir la liste de pokÃ©mons
+{{pok.nom}}  : RÃ©cupÃ©rer la liste de pokÃ©mons
 </option>
 
 <option ng-repeat="pok in poks   |filter:nom || filter:id"> : Pour faire des filtres par id ou nom.
 
-# Accès à une API
+# AccÃ¨s Ã  une API
  
-Nous avons utilisé une API comme source d'information pour notre pokédex.
-l'API offre la liste des pokémons ainsi que des informations détaillées pour chacun d'entre eux.
-### En premier temps, nous avons utilisé le service $http pour récupérer la liste de pokémons , en précisant l'URL comme paramètre.
+Nous avons utilisÃ© une API comme source d'information pour notre pokÃ©dex.
+l'API offre la liste des pokÃ©mons ainsi que des informations dÃ©taillÃ©es pour chacun d'entre eux.
+### En premier temps, nous avons utilisÃ© le service $http pour rÃ©cupÃ©rer la liste de pokÃ©mons , en prÃ©cisant l'URL comme paramÃ¨tre.
  $http.get("http://pokeapi.co/api/v2/pokedex/1/").then(function(response) {
  $scope.poks  = response.data.pokemon_entries;
  }); 
 
-### Nous pouvons récupérer la liste de pokémons avec le service $resource en passant l'URL:
+### Nous pouvons rÃ©cupÃ©rer la liste de pokÃ©mons avec le service $resource en passant l'URL:
  $resource("http://pokeapi.co/api/v1/type/:id/")
  
 
-### Création d'une factory 
+### CrÃ©ation d'une factory 
  
-Dans AngularJS, les services et les factories permettent d'obtenir un objet JavaScript à utiliser dans le code.
-Leur but est le méme, seulement la syntaxe qui diffère. 
+Dans AngularJS, les services et les factories permettent d'obtenir un objet JavaScript Ã  utiliser dans le code.
+Leur but est le mÃ©me, seulement la syntaxe qui diffÃ¨re. 
 
 Une factory :
-L'objet est instancié avec la valeur retournée par la fonction passée en paramètre. 
+L'objet est instanciÃ© avec la valeur retournÃ©e par la fonction passÃ©e en paramÃ¨tre. 
  
 	 pokeApp.factory('factory', function($resource) {
 	 return $resource('http://pokeapi.co/api/v2/pokemon/:id');
@@ -78,13 +78,13 @@ L'objet est instancié avec la valeur retournée par la fonction passée en paramèt
 
   
 Un service:
-Le service différe de la factory juste au  niveau de la syntaxe.
-La fonction passée en paramètre est appelée comme un constructeur (new fonction()).
+Le service diffÃ©re de la factory juste au  niveau de la syntaxe.
+La fonction passÃ©e en paramÃ¨tre est appelÃ©e comme un constructeur (new fonction()).
 
-Après la création d'un service, nous pouvons l'appeler dans plusieurs contrôleurs et nous pouvons l'utiliser dans notre application.
+AprÃ¨s la crÃ©ation d'un service, nous pouvons l'appeler dans plusieurs contrÃ´leurs et nous pouvons l'utiliser dans notre application.
  
-Nous avons déclaré deux services : le servicePok  et le factory.
-Le code pour récupérer un pokémon par son Id en utilisant le factory déjà défini:
+Nous avons dÃ©clarÃ© deux services : le servicePok  et le factory.
+Le code pour rÃ©cupÃ©rer un pokÃ©mon par son Id en utilisant le factory dÃ©jÃ  dÃ©fini:
 	
 		$scope.kur = factory.get({
 		id :5
@@ -97,20 +97,20 @@ Le code pour récupérer un pokémon par son Id en utilisant le factory déjà défini
 		Nom: {{kur.name}}  
 		
 T### Communication
-### Nous avons utilisé la fonction $watch.
-$watch est une fonction attachée à $scope qui nous permet d'observer de mettre à jour l'affichage 
-du pokemon lors du changement du pokémon recherché.
+### Nous avons utilisÃ© la fonction $watch.
+$watch est une fonction attachÃ©e Ã  $scope qui nous permet d'observer de mettre Ã  jour l'affichage 
+du pokemon lors du changement du pokÃ©mon recherchÃ©.
 
-Le code suivant représente l'utilisation de la fonction $watch qui prend en paramètre la propriété  que nous souhaitons observer et une fonction function( newValue ).
-Une fois le nom du pokemon recherché est modifié , l'autre label est mis à jour automatiquement.
+Le code suivant reprÃ©sente l'utilisation de la fonction $watch qui prend en paramÃ¨tre la propriÃ©tÃ©  que nous souhaitons observer et une fonction function( newValue ).
+Une fois le nom du pokemon recherchÃ© est modifiÃ© , l'autre label est mis Ã  jour automatiquement.
  $scope.$watch('nom',function( newValue ) {
                //  console.log( newValue );
 		 $scope.nom= newValue;
              }
          );
          
-### Création d'une nouvelle directive
-Le code suivant représente la création de la nouvelle directive appelé pokedex
+### CrÃ©ation d'une nouvelle directive
+Le code suivant reprÃ©sente la crÃ©ation de la nouvelle directive appelÃ© pokedex
 avec un attribut classe.
 
 .directive('pokedex', function() {
@@ -120,8 +120,8 @@ avec un attribut classe.
 		  };
 		});
 
-Nous avons déplacé le code HTML du pokédex dans un nouveau fichier en référançant la directive crée à ce fichier.
+Nous avons dÃ©placÃ© le code HTML du pokÃ©dex dans un nouveau fichier en rÃ©fÃ©ranÃ§ant la directive crÃ©e Ã  ce fichier.
 
-<!-- Appeler la directive appelé pokedex dans le fichoer index.html pour restaurer les 
-fonctionnalités de notre application pokédex. -->
+<!-- Appeler la directive appelÃ© pokedex dans le fichoer index.html pour restaurer les 
+fonctionnalitÃ©s de notre application pokÃ©dex. -->
 <span class="pokedex"></span>
