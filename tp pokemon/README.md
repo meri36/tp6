@@ -145,3 +145,4 @@ Nous avons déplacé le code HTML du pokédex dans un nouveau fichier en référ
 <!-- Appeler la directive appelé pokedex dans le fichoer index.html pour restaurer les  
 fonctionnalités de notre application pokédex. -->
 <span class="pokedex"></span> </br>
+</br>
